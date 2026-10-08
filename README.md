@@ -14,7 +14,7 @@ A modern, bento-style personal portfolio built with **[Astro](https://astro.buil
 - 🎨 **Switchable UI themes** — glass, sharp, neon and paper styles, with color variants
 - 📱 **Fully responsive**
 - ✍️ **Blog** with Markdown content, reading-time estimates and **RSS** (`/rss.xml`)
-- 💬 **Guestbook** — visitors can leave messages and reactions (backed by libSQL)
+- 💬 **Guestbook** — unavailable on the static GitHub Pages deployment
 - 🌍 **Interactive 3D globe** and a **travel map** of visited countries
 - 🧪 **Playground** — a collection of animation/interaction experiments (GSAP morphs, Rive, WebGL-ish effects, scroll animations, and more)
 - 🔊 Subtle **UI sound effects** (toggleable)
@@ -25,13 +25,13 @@ A modern, bento-style personal portfolio built with **[Astro](https://astro.buil
 
 | Area       | Tools                                                                                                                             |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Framework  | [Astro](https://astro.build) (SSR)                                                                                                |
+| Framework  | [Astro](https://astro.build) (static output)                                                                                      |
 | Styling    | [UnoCSS](https://unocss.dev/)                                                                                                     |
 | UI islands | [SolidJS](https://www.solidjs.com/), [Svelte](https://svelte.dev/)                                                                |
 | Animation  | [Motion](https://motion.dev/), [GSAP](https://gsap.com/), [Lenis](https://lenis.darkroom.engineering/), [Rive](https://rive.app/) |
 | Dataviz    | [D3](https://d3js.org/) (globe)                                                                                                   |
 | Database   | [Drizzle ORM](https://orm.drizzle.team/) on [libSQL / Turso](https://turso.tech/) (guestbook)                                     |
-| Hosting    | [Netlify adapter](https://docs.astro.build/en/guides/integrations-guide/netlify/)                                                 |
+| Hosting    | [GitHub Pages](https://pages.github.com/)                                                                                         |
 
 ## Prerequisites
 
@@ -79,38 +79,13 @@ A few things the script **doesn't** cover:
 | `pnpm format`     | Format with Prettier                 |
 | `pnpm site-setup` | Interactive personalization          |
 
-## Database (Guestbook)
+## Guestbook
 
-The guestbook uses [Drizzle ORM](https://orm.drizzle.team/) over a remote **libSQL** database (e.g. [Turso](https://turso.tech/)). Provide your database credentials as environment variables:
+The guestbook requires server-rendered pages and database-backed API routes, so it is unavailable on this static GitHub Pages deployment.
 
-```bash
-TURSO_DATABASE_URL=libsql://<your-database>.turso.io
-TURSO_AUTH_TOKEN=<your-auth-token>
-```
+## Deploy on GitHub Pages
 
-Then create the table:
-
-```sql
-CREATE TABLE "Guestbook" (
-  "id" integer PRIMARY KEY,
-  "name" text NOT NULL,
-  "message" text NOT NULL,
-  "website" text,
-  "parentId" integer,
-  "heartCount" integer,
-  "createdAt" text NOT NULL
-);
-```
-
-The client and schema live in `src/lib/db.ts`. `createdAt` is stored as an ISO 8601 string.
-
-> These variables must be set in your deploy environment. If you don't need the guestbook, delete `src/lib/db.ts`, `src/pages/guestbook.astro` and the `src/pages/api/guestbook.ts` / `reactions.ts` routes.
-
-## Deploy on Netlify 🚀
-
-Deploying on Netlify is optional but recommended for the quickest setup. Fork this repo and link it to your Netlify account — or use the one-click button below. Remember to set the database environment variables (above) in your Netlify site settings.
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Ladvace/astro-bento-portfolio)
+The `main` branch builds the static site with GitHub Actions and publishes `dist` to [the project Pages site](https://ericeisaman.github.io/sirfizx-graphics/). The guestbook and its database-backed API are not available on GitHub Pages.
 
 ## License
 

@@ -1,6 +1,5 @@
 import { defineConfig, fontProviders } from "astro/config";
 import sitemap from "@astrojs/sitemap";
-import netlify from "@astrojs/netlify";
 import robotsTxt from "astro-robots-txt";
 import UnoCSS from "@unocss/astro";
 import icon from "astro-icon";
@@ -12,9 +11,10 @@ import svelte from "@astrojs/svelte";
 
 import { unified } from "@astrojs/markdown-remark";
 
-const envSiteUrl = process.env.SITE_URL ?? "https://gianmarcocavallo.com/";
+const envSiteUrl = process.env.SITE_URL ?? "https://ericeisaman.github.io/";
 const site = envSiteUrl.endsWith("/") ? envSiteUrl : `${envSiteUrl}/`;
 const siteNoTrailingSlash = site.endsWith("/") ? site.slice(0, -1) : site;
+const base = "/sirfizx-graphics";
 
 // https://astro.build/config
 export default defineConfig({
@@ -64,8 +64,8 @@ export default defineConfig({
     sitemap(),
     robotsTxt({
       sitemap: [
-        `${siteNoTrailingSlash}/sitemap-index.xml`,
-        `${siteNoTrailingSlash}/sitemap-0.xml`,
+        `${siteNoTrailingSlash}${base}/sitemap-index.xml`,
+        `${siteNoTrailingSlash}${base}/sitemap-0.xml`,
       ],
     }),
     solidJs(),
@@ -76,12 +76,12 @@ export default defineConfig({
   markdown: unified({
     remarkPlugins: [remarkReadingTime],
   }),
+  base,
   prefetch: {
     prefetchAll: true,
     defaultStrategy: "hover",
   },
-  output: "server",
-  adapter: netlify({ middlewareMode: "edge" }),
+  output: "static",
   vite: {
     assetsInclude: "**/*.riv",
   },

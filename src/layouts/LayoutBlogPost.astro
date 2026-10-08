@@ -15,7 +15,7 @@ const { title, description, pubDate, minutesRead } = Astro.props;
 
 <BasicLayout description={description} page="blog" title={title}>
   <main class="mx-auto max-w-3xl w-full h-screen p-8 text-neutral-100">
-    <BackLink href="/blog" class="mb-8" />
+    <BackLink href={`${import.meta.env.BASE_URL}/blog/`} class="mb-8" />
     <div class="my-10">
       <h1 class="text-5xl font-semibold">{title}</h1>
       <div class="flex justify-between pt-4 text-gray-500 text-sm">

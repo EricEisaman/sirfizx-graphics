@@ -12,7 +12,10 @@ export const prerender = true;
   page="travel"
   title={`${SITE.author.fullName} - Visited Countries`}
 >
-  <BackLink href="/" class="absolute top-4 left-4" />
+  <BackLink
+    href={`${import.meta.env.BASE_URL}/`}
+    class="absolute top-4 left-4"
+  />
 
   <Globe client:load enableHover={true} />
 </BasicLayout>
